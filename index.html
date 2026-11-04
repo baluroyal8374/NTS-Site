@@ -219,6 +219,7 @@ var GFORM={
   phone:'entry.2053457000',
   email:'entry.1045781291',
   course:'entry.256221312',
+  branch:'entry.2058576915',
   message:'entry.839337160'
 };
 /* ------------------------------------------------------ */
@@ -238,9 +239,8 @@ form.addEventListener('submit',function(e){
   body.append(GFORM.phone,d.get('phone'));
   body.append(GFORM.email,d.get('email'));
   body.append(GFORM.course,d.get('course'));
-  var note='Branch: '+d.get('branch');
-  if(d.get('message').trim()){note+=' | '+d.get('message').trim();}
-  body.append(GFORM.message,note);
+  body.append(GFORM.branch,d.get('branch'));
+  body.append(GFORM.message,d.get('message').trim());
   statusEl.textContent='Sending...';
   fetch(GFORM.action,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:body.toString()})
     .then(function(){statusEl.textContent='Thank you! We received your enquiry and will contact you soon.';form.reset();})
