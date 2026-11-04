@@ -68,8 +68,8 @@ section.alt .course{background:var(--bg)}
 .branch a.link{color:var(--gold2);font-weight:600}
 form{display:grid;gap:14px;max-width:520px}
 label{display:grid;gap:6px;font-size:.95rem;color:var(--muted)}
-input,select{font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:12px}
-input:focus,select:focus{border-color:var(--gold)}
+input,select,textarea{font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:12px}
+input:focus,select:focus,textarea:focus{border-color:var(--gold)}
 .contact{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:44px;align-items:start}
 .phone{font-family:"Bricolage Grotesque",sans-serif;font-size:2rem;font-weight:800;color:var(--gold);text-decoration:none}
 footer{border-top:1px solid var(--line);padding:26px 0;color:var(--muted);font-size:.9rem}
@@ -182,7 +182,8 @@ footer{border-top:1px solid var(--line);padding:26px 0;color:var(--muted);font-s
     </div>
     <form id="f">
       <label>Your name<input name="name" required autocomplete="name"></label>
-      <label>Phone number<input name="phone" type="tel" required inputmode="tel" autocomplete="tel" pattern="[0-9+ ]{10,14}"></label>
+      <label>Mobile number<input name="phone" type="tel" required inputmode="numeric" autocomplete="tel" pattern="[6-9][0-9]{9}" maxlength="10" title="Enter a valid 10-digit mobile number"></label>
+      <label>Email address<input name="email" type="email" required autocomplete="email"></label>
       <label>Course
         <select name="course">
           <option>Java Full Stack</option><option>Python Full Stack</option><option>Software Testing</option>
@@ -193,6 +194,7 @@ footer{border-top:1px solid var(--line);padding:26px 0;color:var(--muted);font-s
       <label>Preferred branch
         <select name="branch"><option>Tirupati</option><option>Bengaluru</option><option>Nellore</option></select>
       </label>
+      <label>Message (optional)<textarea name="message" rows="3" maxlength="500"></textarea></label>
       <div class="row">
         <button class="btn gold" type="submit" data-mode="form">Submit enquiry</button>
         <button class="btn wa" type="submit" data-mode="wa">Send on WhatsApp</button>
@@ -212,11 +214,12 @@ footer{border-top:1px solid var(--line);padding:26px 0;color:var(--muted);font-s
 <script>
 /* ---- GOOGLE FORM SETTINGS: paste your values here ---- */
 var GFORM={
-  action:'',   // e.g. https://docs.google.com/forms/d/e/XXXX/formResponse
-  name:'',     // e.g. entry.1111111111
-  phone:'',    // e.g. entry.2222222222
-  course:'',   // e.g. entry.3333333333
-  branch:''    // e.g. entry.4444444444
+  action:'https://docs.google.com/forms/d/e/1FAIpQLSfzInmLBHA5CrkMyKQvbEsOHmFzyp7RlvLDCv2Z4yQIxbrOYQ/formResponse',
+  name:'entry.2005620554',
+  phone:'entry.2053457000',
+  email:'entry.1045781291',
+  course:'entry.256221312',
+  message:'entry.839337160'
 };
 /* ------------------------------------------------------ */
 var form=document.getElementById('f'),statusEl=document.getElementById('status'),mode='form';
@@ -233,8 +236,11 @@ form.addEventListener('submit',function(e){
   var body=new URLSearchParams();
   body.append(GFORM.name,d.get('name'));
   body.append(GFORM.phone,d.get('phone'));
+  body.append(GFORM.email,d.get('email'));
   body.append(GFORM.course,d.get('course'));
-  body.append(GFORM.branch,d.get('branch'));
+  var note='Branch: '+d.get('branch');
+  if(d.get('message').trim()){note+=' | '+d.get('message').trim();}
+  body.append(GFORM.message,note);
   statusEl.textContent='Sending...';
   fetch(GFORM.action,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:body.toString()})
     .then(function(){statusEl.textContent='Thank you! We received your enquiry and will contact you soon.';form.reset();})
