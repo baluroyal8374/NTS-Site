@@ -179,6 +179,14 @@ var msg=document.getElementById('msg');
 function ok(){if(!document.getElementById('n').value.trim()){msg.textContent='Please enter your name.';document.getElementById('n').focus();return false}return true}
 document.getElementById('wa').onclick=function(){if(ok())window.open('https://wa.me/917892928830?text='+encodeURIComponent(data()),'_blank')};
 document.getElementById('sub').onclick=function(){if(!ok())return;
-location.href='mailto:hr@narayanadritech.com?subject='+encodeURIComponent('Course enquiry: '+document.getElementById('cs').value)+'&body='+encodeURIComponent(data());
-msg.textContent='Opening your email app. You can also send this on WhatsApp.'};
+var g=function(i){return document.getElementById(i).value.trim()};
+var u='https://docs.google.com/forms/d/e/1FAIpQLSfzInmLBHA5CrkMyKQvbEsOHmFzyp7RlvLDCv2Z4yQIxbrOYQ/viewform?usp=pp_url'
++'&entry.2005620554='+encodeURIComponent(g('n'))
++'&entry.2053457000='+encodeURIComponent(g('p'))
++'&entry.1045781291='+encodeURIComponent(g('e'))
++'&entry.256221312='+encodeURIComponent(g('cs'))
++'&entry.2058576915='+encodeURIComponent(g('b'))
++'&entry.839337160='+encodeURIComponent(g('m'));
+window.open(u,'_blank');
+msg.textContent='Your details are filled in. Please press Submit on the form that opened.'};
 </script></body></html>
