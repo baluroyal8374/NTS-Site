@@ -137,7 +137,7 @@ footer{padding:36px 0 100px;text-align:center;color:var(--mu);font-size:14px;bor
 <div class="bx"><h4>Nellore</h4><p>CXHG+RG6, Annamayya Cir, Magunta Layout, Nellore, Andhra Pradesh 524003.</p><a class="l" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=CXHG%2BRG6+Nellore">Get directions</a></div></div></div></section>
 
 <section id="contact" class="sec" style="padding-top:20px"><div class="c ct"><div><h2>Let's get in touch</h2>
-<form id="f" novalidate><div class="fr"><input id="n" placeholder="Your name *" aria-label="Your name" autocomplete="name"><input id="p" type="tel" placeholder="Your phone" aria-label="Your phone" autocomplete="tel"><input id="e" type="email" placeholder="Your email" aria-label="Your email" autocomplete="email">
+<form id="f"><div class="fr"><input id="n" placeholder="Your name *" aria-label="Your name" autocomplete="name" required><input id="p" type="tel" placeholder="Your phone (10 digits) *" aria-label="Your phone" autocomplete="tel" inputmode="numeric" minlength="10" maxlength="10" pattern="[6-9][0-9]{9}" title="Enter a valid 10-digit Indian mobile number" required><input id="e" type="email" placeholder="Your email *" aria-label="Your email" autocomplete="email" required>
 <select id="cs" aria-label="Course"><option>Java Full Stack</option><option>Python Full Stack</option><option>MERN Stack</option><option>Data Analytics</option><option>Software Testing</option><option>DevOps &amp; Cloud</option></select>
 <select id="b" aria-label="Preferred branch"><option>Tirupati</option><option>Bengaluru</option><option>Nellore</option></select></div>
 <textarea id="m" placeholder="Your message (optional)" aria-label="Message"></textarea>
@@ -176,7 +176,7 @@ var io=new IntersectionObserver(function(en){if(!en[0].isIntersecting)return;io.
 function data(){var g=function(i){return document.getElementById(i).value.trim()};
 return 'Hi NTS, I want to enquire.\nName: '+g('n')+'\nPhone: '+g('p')+'\nEmail: '+g('e')+'\nCourse: '+g('cs')+'\nBranch: '+g('b')+'\nMessage: '+g('m')}
 var msg=document.getElementById('msg');
-function ok(){if(!document.getElementById('n').value.trim()){msg.textContent='Please enter your name.';document.getElementById('n').focus();return false}return true}
+function ok(){var f=document.getElementById('f');if(!f.reportValidity())return false;return true}
 document.getElementById('wa').onclick=function(){if(ok())window.open('https://wa.me/917892928830?text='+encodeURIComponent(data()),'_blank')};
 document.getElementById('sub').onclick=function(){if(!ok())return;
 var g=function(i){return document.getElementById(i).value.trim()};
